@@ -5,10 +5,7 @@ import com.jizhang.jizhang.model.IncomeOutlay;
 import com.jizhang.jizhang.service.IncomeOutlayService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -17,7 +14,7 @@ import java.util.List;
 * Created by 代码生成器 on 2019/03/07.
 */
 @RestController
-@RequestMapping("/income/outlay")
+@RequestMapping("/income")
 public class IncomeOutlayController {
     @Resource
     private IncomeOutlayService incomeOutlayService;
@@ -45,12 +42,12 @@ public class IncomeOutlayController {
         IncomeOutlay incomeOutlay = incomeOutlayService.findById(id);
         return ResultGenerator.genSuccessResult(incomeOutlay);
     }
-
     @PostMapping("/list")
     public Result list(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "0") Integer size) {
         PageHelper.startPage(page, size);
         List<IncomeOutlay> list = incomeOutlayService.findAll();
         PageInfo pageInfo = new PageInfo(list);
+        System.out.println(ResultGenerator.genSuccessResult(pageInfo));
         return ResultGenerator.genSuccessResult(pageInfo);
     }
 }
