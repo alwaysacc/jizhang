@@ -2,6 +2,7 @@ package com.jizhang.jizhang.service.impl;
 
 import com.jizhang.jizhang.dao.IncomeOutlayMapper;
 import com.jizhang.jizhang.model.IncomeOutlay;
+import com.jizhang.jizhang.model.WxUser;
 import com.jizhang.jizhang.service.IncomeOutlayService;
 import com.jizhang.jizhang.utils.AbstractService;
 import org.springframework.stereotype.Service;

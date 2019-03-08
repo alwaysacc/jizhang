@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jizhang.jizhang.dao.WxUserMapper">
+  <resultMap id="BaseResultMap" type="com.jizhang.jizhang.model.WxUser">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <result column="id" jdbcType="VARCHAR" property="id" />
+    <result column="openid" jdbcType="VARCHAR" property="openid" />
+    <result column="nickname" jdbcType="VARCHAR" property="nickname" />
+    <result column="avatarurl" jdbcType="VARCHAR" property="avatarurl" />
+    <result column="gender" jdbcType="BIT" property="gender" />
+    <result column="country" jdbcType="VARCHAR" property="country" />
+    <result column="province" jdbcType="VARCHAR" property="province" />
+    <result column="city" jdbcType="VARCHAR" property="city" />
+    <result column="language" jdbcType="VARCHAR" property="language" />
+    <result column="ctime" jdbcType="VARCHAR" property="ctime" />
+    <result column="mobile" jdbcType="VARCHAR" property="mobile" />
+    <result column="telnum" jdbcType="CHAR" property="telnum" />
+  </resultMap>
+  <select id="getUser" resultType="WxUser">
+    select nickname from wx_user where openid=#{openid}
+  </select>
+</mapper>
