@@ -8,6 +8,6 @@ import com.jizhang.jizhang.utils.Service;
  */
 public interface WxUserService extends Service<WxUser> {
 
-    public WxUser getUser(String openId);
+    WxUser getUser(String openId);
 
 }

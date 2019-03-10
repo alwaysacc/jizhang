@@ -23,14 +23,12 @@ public class UUIDS {
         Calendar Cld = Calendar.getInstance();
         int YY = Cld.get(Calendar.YEAR) ;
         int MM = Cld.get(Calendar.MONTH)+1;
-        System.out.println(MM);
         String  NMM="";
         if(MM<10){
             NMM="0"+MM;
         }else{
             NMM="" +MM;
         }
-        System.out.println(NMM);
         int DD = Cld.get(Calendar.DATE);
         String  NDD="";
         if(DD<10){
@@ -40,14 +38,14 @@ public class UUIDS {
         }
         int HH = Cld.get(Calendar.HOUR_OF_DAY);
         String  NHH="";
-        if(DD<10){
+        if(HH<10){
             NHH="0"+HH;
         }else{
             NHH=""+HH;
         }
         int mm = Cld.get(Calendar.MINUTE);
         String  Nmm="";
-        if(DD<10){
+        if(mm<10){
             Nmm="0"+mm;
         }else{
             Nmm=""+mm;

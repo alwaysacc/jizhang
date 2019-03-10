@@ -4,5 +4,5 @@ import com.jizhang.jizhang.model.WxUser;
 import com.jizhang.jizhang.utils.Mapper;
 
 public interface WxUserMapper extends Mapper<WxUser> {
-    public WxUser getUser(String openId);
+    WxUser getUser(String openId);
 }

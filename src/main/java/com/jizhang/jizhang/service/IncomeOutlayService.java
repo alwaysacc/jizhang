@@ -5,11 +5,15 @@ import com.jizhang.jizhang.model.WxUser;
 import com.jizhang.jizhang.utils.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 
 /**
  * Created by 代码生成器 on 2019/03/07.
  */
 public interface IncomeOutlayService extends Service<IncomeOutlay>{
-
+    List<IncomeOutlay> getToday(String userid);
+    List<IncomeOutlay> getWeek(String userid);
+    List<IncomeOutlay> getMonth(String userid);
+    List<IncomeOutlay> getYear(String userid);
 }

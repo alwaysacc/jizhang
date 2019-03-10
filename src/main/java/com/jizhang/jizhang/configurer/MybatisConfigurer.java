@@ -20,7 +20,7 @@ import static com.jizhang.jizhang.utils.ProjectConstant.*;
  */
 
 @Configuration
-public  class MybatisConfigurer {
+public  class   MybatisConfigurer {
 
     @Bean
     public static SqlSessionFactory sqlSessionFactoryBean(DataSource dataSource) throws Exception {

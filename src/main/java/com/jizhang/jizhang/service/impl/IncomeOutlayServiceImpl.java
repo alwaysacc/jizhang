@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 
 /**
@@ -20,4 +21,23 @@ public class IncomeOutlayServiceImpl extends AbstractService<IncomeOutlay> imple
     @Resource
     private IncomeOutlayMapper incomeOutlayMapper;
 
+    @Override
+    public List<IncomeOutlay> getToday(String userid) {
+        return incomeOutlayMapper.getToday(userid);
+    }
+
+    @Override
+    public List<IncomeOutlay> getWeek(String userid) {
+        return incomeOutlayMapper.getWeek(userid);
+    }
+
+    @Override
+    public List<IncomeOutlay> getMonth(String userid) {
+        return incomeOutlayMapper.getMonth(userid);
+    }
+
+    @Override
+    public List<IncomeOutlay> getYear(String userid) {
+        return incomeOutlayMapper.getYear(userid);
+    }
 }

@@ -75,27 +75,22 @@ public class WxUserController {
         log.info( "Start get SessionKey" );
         Map<String,Object> map = new HashMap<String, Object>(  );
         System.out.println("用户非敏感信息"+rawData);
-
         JSONObject rawDataJson = JSON.parseObject( rawData );
-
         System.out.println("签名"+signature);
         JSONObject SessionKeyOpenId = WxUtils.getSessionKeyOrOpenId( code );
         System.out.println("post请求获取的SessionAndopenId="+SessionKeyOpenId);
-
         String openid = SessionKeyOpenId.getString("openid" );
-
         String sessionKey = SessionKeyOpenId.getString( "session_key" );
-
         System.out.println("openid="+openid+",session_key="+sessionKey);
         //Condition condition = new Condition(WxUser.class);
         //condition.createCriteria().andCondition("id ="+"'"+openid+"'");
         //condition.setOrderByClause("createtime desc");
         //List<WxUser> list =  wxUserService.findByCondition( condition );
         WxUser user = wxUserService.getUser(openid);
-        JSONObject a = (JSONObject) JSON.parseObject(String.valueOf(user));
-        System.out.println(a);
         //uuid生成唯一key
         String skey = UUID.randomUUID().toString();
+
+        WxUser wxUser=new WxUser();
         if(user==null){
             //入库
             String nickName = rawDataJson.getString( "nickName" );
@@ -105,7 +100,6 @@ public class WxUserController {
             String country = rawDataJson.getString( "country" );
             String province = rawDataJson.getString( "province" );
 
-            WxUser wxUser=new WxUser();
             wxUser.setNickname(nickName);
             wxUser.setGender(Integer.parseInt(gender));
             wxUser.setCity(city);
@@ -115,10 +109,16 @@ public class WxUserController {
             wxUser.setCtime(UUIDS.getDateTime());
             wxUser.setOpenid(openid);
             wxUser.setId(UUIDS.getDateUUID());
+            System.out.println(UUIDS.getDateUUID());
             wxUserService.save(wxUser);
         }else {
             //已存在
             log.info( "用户openid已存在,不需要插入" );
+            Condition condition = new Condition(WxUser.class);
+            condition.createCriteria().andCondition("openid ="+"'"+openid+"'");
+            //condition.setOrderByClause("createtime desc");
+            List list = wxUserService.findByCondition( condition );
+            wxUser= (WxUser) list.get(0);
         }
         /*//根据openid查询skey是否存在
         String skey_redis = (String) redisTemplate.opsForValue().get( openid );
@@ -138,7 +138,7 @@ public class WxUserController {
         map.put( "skey",skey );
         JSONObject userInfo = WxUtils.getUserInfo( encrypteData, sessionKey, iv );
         System.out.println("根据解密算法获取的userInfo="+userInfo);
-        map.put( "userInfo",userInfo );
+        map.put( "userInfo",wxUser);
         System.out.println(encrypteData);
         return ResultGenerator.genSuccessResult(map);
     }
