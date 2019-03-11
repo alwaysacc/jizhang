@@ -15,7 +15,7 @@ import javax.annotation.Resource;
 import java.util.List;
 
 /**
-* Created by 代码生成器 on 2019/03/07.
+* Created by alwaysacc on 2019/03/07.
 */
 @RestController
 @RequestMapping("/income")
@@ -39,13 +39,13 @@ public class IncomeOutlayController {
         incomeOutlayService.deleteById(id);
         return ResultGenerator.genSuccessResult();
     }
-    
+
     @PostMapping("/update")
     public Result update(IncomeOutlay incomeOutlay) {
         incomeOutlayService.update(incomeOutlay);
         return ResultGenerator.genSuccessResult();
     }
-    
+
     @PostMapping("/detail")
     public Result detail(@RequestParam Integer id) {
         IncomeOutlay incomeOutlay = incomeOutlayService.findById(id);
@@ -58,7 +58,6 @@ public class IncomeOutlayController {
         condition.createCriteria().andCondition("userId ="+"'"+userid+"'");
         List<IncomeOutlay> list = incomeOutlayService.findByCondition(condition);
         PageInfo pageInfo = new PageInfo(list);
-        System.out.println(ResultGenerator.genSuccessResult(pageInfo));
         return ResultGenerator.genSuccessResult(pageInfo);
     }
     //获取天，周，月，年

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jizhang.jizhang.dao.AccountMapper">
+  <resultMap id="BaseResultMap" type="com.jizhang.jizhang.model.Account">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <result column="id" jdbcType="INTEGER" property="id" />
+    <result column="money" jdbcType="DECIMAL" property="money" />
+    <result column="bank" jdbcType="DECIMAL" property="bank" />
+    <result column="credit" jdbcType="DECIMAL" property="credit" />
+    <result column="alipay" jdbcType="DECIMAL" property="alipay" />
+    <result column="huabei" jdbcType="DECIMAL" property="huabei" />
+    <result column="WeChat" jdbcType="DECIMAL" property="wechat" />
+    <result column="jingdong" jdbcType="DECIMAL" property="jingdong" />
+    <result column="other" jdbcType="DECIMAL" property="other" />
+    <result column="userid" jdbcType="VARCHAR" property="userid" />
+  </resultMap>
+
+  <select id="getAccount" resultType="Account">
+    select money,bank,credit,alipay,huabei,WeChat,jingdong,other from account where userid=#{userid}
+  </select>
+</mapper>

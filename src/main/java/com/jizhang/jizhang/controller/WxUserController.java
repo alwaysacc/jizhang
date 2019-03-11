@@ -1,6 +1,8 @@
 package com.jizhang.jizhang.controller;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.jizhang.jizhang.model.Account;
+import com.jizhang.jizhang.service.AccountService;
 import com.jizhang.jizhang.utils.UUIDS;
 import com.jizhang.jizhang.utils.WxUtils;
 import com.jizhang.jizhang.utils.Result;
@@ -26,7 +28,7 @@ import java.util.Map;
 import java.util.UUID;
 
 /**
- * Created by 代码生成器 on 2019/03/08.
+ * Created by alwaysacc on 2019/03/08.
  */
 @RestController
 @RequestMapping("/user")
@@ -34,6 +36,8 @@ public class WxUserController {
     private final Logger log = LoggerFactory.getLogger(WxUserController.class);
     @Resource
     private WxUserService wxUserService;
+    @Resource
+    private AccountService accountService;;
 
     @PostMapping("/add")
     public Result add(WxUser wxUser) {
@@ -111,6 +115,10 @@ public class WxUserController {
             wxUser.setId(UUIDS.getDateUUID());
             System.out.println(UUIDS.getDateUUID());
             wxUserService.save(wxUser);
+            Account account = new Account();
+            // 创建账户
+            account.setUserid(wxUser.getId());
+            accountService.save(account);
         }else {
             //已存在
             log.info( "用户openid已存在,不需要插入" );

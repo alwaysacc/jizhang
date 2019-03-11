@@ -9,7 +9,7 @@ import java.util.List;
 
 
 /**
- * Created by 代码生成器 on 2019/03/07.
+ * Created by alwaysacc on 2019/03/07.
  */
 public interface IncomeOutlayService extends Service<IncomeOutlay>{
     List<IncomeOutlay> getToday(String userid);

@@ -4,7 +4,7 @@ import com.jizhang.jizhang.utils.Service;
 
 
 /**
- * Created by 代码生成器 on 2019/03/08.
+ * Created by alwaysacc on 2019/03/08.
  */
 public interface WxUserService extends Service<WxUser> {
 
