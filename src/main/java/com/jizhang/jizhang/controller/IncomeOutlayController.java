@@ -41,8 +41,11 @@ public class IncomeOutlayController {
     }
 
     @PostMapping("/update")
-    public Result update(IncomeOutlay incomeOutlay) {
-        incomeOutlayService.update(incomeOutlay);
+    public Result update(String incomeOutlay) {
+        System.out.println(incomeOutlay);
+        IncomeOutlay income= JSONObject.parseObject(incomeOutlay,IncomeOutlay.class);
+        incomeOutlayService.update(income);
+
         return ResultGenerator.genSuccessResult();
     }
 
