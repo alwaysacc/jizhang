@@ -13,6 +13,6 @@ public interface IncomeOutlayMapper extends Mapper<IncomeOutlay> {
     List<IncomeOutlay> getYear(String userid);
     int getTodayIncome(@Param("userid") String userid, @Param("type") int type);
     int getWeekIncome(@Param("userid")String userid,@Param("type") int type);
-    int getMonthIncome(String userid,int type);
-    int getYearIncome(String userid,int type);
+    int getMonthIncome(@Param("userid")String userid,@Param("type")int type);
+    int getYearIncome(@Param("userid")String userid,@Param("type")int type);
 }

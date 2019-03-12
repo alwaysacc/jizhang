@@ -60,6 +60,7 @@ public class IncomeOutlayController {
         IncomeOutlay incomeOutlay = incomeOutlayService.findById(id);
         return ResultGenerator.genSuccessResult(incomeOutlay);
     }
+    //首页
     @PostMapping("/list")
     public Result list(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "0") Integer size,@RequestParam String userid) {
         PageHelper.startPage(page, size);
@@ -78,23 +79,38 @@ public class IncomeOutlayController {
     }
     //获取天，周，月，年
     @PostMapping("/getListByUserid")
-    public Result getListByUserid(@RequestParam String userid,String by) {
+    public Result getListByUserid(@RequestParam String userid,String by,@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "0") Integer size) {
+        PageHelper.startPage(page, size);
         List list = null;
+        int income = 0;
+        int outlay = 0;
         switch (by){
             case "天":
                 list=incomeOutlayService.getToday(userid);
+                income =incomeOutlayService.getTodayIncome(userid,1)+incomeOutlayService.getTodayIncome(userid,3);
+                outlay=incomeOutlayService.getTodayIncome(userid,2);
                 break;
             case "周":
                 list=incomeOutlayService.getWeek(userid);
+                income =incomeOutlayService.getWeekIncome(userid,1)+incomeOutlayService.getWeekIncome(userid,3);
+                outlay=incomeOutlayService.getWeekIncome(userid,2);
                 break;
             case "月":
                 list=incomeOutlayService.getMonth(userid);
+                income =incomeOutlayService.getMonthIncome(userid,1)+incomeOutlayService.getMonthIncome(userid,3);
+                outlay=incomeOutlayService.getMonthIncome(userid,2);
                 break;
             case "年":
                 list=incomeOutlayService.getYear(userid);
+                income =incomeOutlayService.getYearIncome(userid,1)+incomeOutlayService.getYearIncome(userid,3);
+                outlay=incomeOutlayService.getYearIncome(userid,2);
         }
-        String a= "asd";
-        return ResultGenerator.genSuccessResult(list);
+        PageInfo pageInfo = new PageInfo(list);
+        Map map = new HashMap();
+        map.put("list",pageInfo);
+        map.put("income",income);
+        map.put("outlay",outlay);
+        return ResultGenerator.genSuccessResult(map);
     }
 
 
