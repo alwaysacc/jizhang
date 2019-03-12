@@ -16,4 +16,8 @@ public interface IncomeOutlayService extends Service<IncomeOutlay>{
     List<IncomeOutlay> getWeek(String userid);
     List<IncomeOutlay> getMonth(String userid);
     List<IncomeOutlay> getYear(String userid);
+    int getTodayIncome(String userid,int type);
+    int getWeekIncome(String userid,int type);
+    int getMonthIncome(String userid,int type);
+    int getYearIncome(String userid,int type);
 }

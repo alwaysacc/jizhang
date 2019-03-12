@@ -40,4 +40,24 @@ public class IncomeOutlayServiceImpl extends AbstractService<IncomeOutlay> imple
     public List<IncomeOutlay> getYear(String userid) {
         return incomeOutlayMapper.getYear(userid);
     }
+
+    @Override
+    public int getTodayIncome(String userid, int type) {
+        return incomeOutlayMapper.getTodayIncome(userid,type);
+    }
+
+    @Override
+    public int getWeekIncome(String userid, int type) {
+        return incomeOutlayMapper.getWeekIncome(userid,type);
+    }
+
+    @Override
+    public int getMonthIncome(String userid, int type) {
+        return incomeOutlayMapper.getMonthIncome(userid,type);
+    }
+
+    @Override
+    public int getYearIncome(String userid, int type) {
+        return incomeOutlayMapper.getYearIncome(userid,type);
+    }
 }

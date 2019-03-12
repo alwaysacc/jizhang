@@ -32,4 +32,23 @@
   <select id="getYear" resultType="IncomeOutlay">
     select id,amount,category,address,dates,createDate,remarks,type,account from income_outlay where YEAR(createDate)=YEAR(NOW())  and userid=#{userid}
   </select>
+
+  <!--查询今天支出或收入-->
+  <select id="getTodayIncome" resultType="int">
+    select COALESCE(SUM(amount),0) from income_outlay where to_days(createDate) = to_days(now()) and userid=#{userid} and type=#{type}
+  </select>
+
+  <!--查询本月支出或收入-->
+  <select id="getMonthIncome" resultType="int">
+    select COALESCE(SUM(amount),0) from income_outlay where date_format(createDate,'%Y-%m')=date_format(now(),'%Y-%m') and userid=#{userid} and type = #{type}
+  </select>
+
+  <!--查询本周支出或收入-->
+  <select id="getWeekIncome" resultType="int">
+    select COALESCE(SUM(amount),0) from income_outlay where YEARWEEK(date_format(createDate,'%Y-%m-%d')) = YEARWEEK(now())  and userid=#{userid} and type = #{type}
+  </select>
+  <!--查询本年支出或收入-->
+  <select id="getYearIncome" resultType="int">
+    select COALESCE(SUM(amount),0) from income_outlay where YEAR(createDate)=YEAR(NOW())  and userid=#{userid} and type = #{type}
+  </select>
 </mapper>

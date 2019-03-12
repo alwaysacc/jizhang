@@ -8,11 +8,16 @@ import com.jizhang.jizhang.service.IncomeOutlayService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.jizhang.jizhang.utils.UUIDS;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 import tk.mybatis.mapper.entity.Condition;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
 * Created by alwaysacc on 2019/03/07.
@@ -20,6 +25,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/income")
 public class IncomeOutlayController {
+    private final Logger log = LoggerFactory.getLogger(IncomeOutlayController.class);
     @Resource
     private IncomeOutlayService incomeOutlayService;
 
@@ -57,11 +63,18 @@ public class IncomeOutlayController {
     @PostMapping("/list")
     public Result list(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "0") Integer size,@RequestParam String userid) {
         PageHelper.startPage(page, size);
-        Condition condition = new Condition(IncomeOutlay.class);
-        condition.createCriteria().andCondition("userId ="+"'"+userid+"'");
-        List<IncomeOutlay> list = incomeOutlayService.findByCondition(condition);
+        List<IncomeOutlay> list = incomeOutlayService.getToday(userid);
         PageInfo pageInfo = new PageInfo(list);
-        return ResultGenerator.genSuccessResult(pageInfo);
+        int income = 0;
+        int outlay = 0;
+        income =incomeOutlayService.getTodayIncome(userid,1)+incomeOutlayService.getTodayIncome(userid,3);
+        outlay=incomeOutlayService.getTodayIncome(userid,2);
+        List l=new ArrayList();
+        Map map = new HashMap();
+        map.put("list",pageInfo);
+        map.put("income",income);
+        map.put("outlay",outlay);
+        return ResultGenerator.genSuccessResult(map);
     }
     //获取天，周，月，年
     @PostMapping("/getListByUserid")
@@ -80,6 +93,7 @@ public class IncomeOutlayController {
             case "年":
                 list=incomeOutlayService.getYear(userid);
         }
+        String a= "asd";
         return ResultGenerator.genSuccessResult(list);
     }
 
