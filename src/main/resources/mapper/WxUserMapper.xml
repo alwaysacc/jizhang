@@ -18,7 +18,7 @@
     <result column="mobile" jdbcType="VARCHAR" property="mobile" />
     <result column="telnum" jdbcType="CHAR" property="telnum" />
   </resultMap>
-  <select id="getUser" resultType="WxUser">
+  <select id="getUser" resultType="com.jizhang.jizhang.model.WxUser">
     select nickname from wx_user where openid=#{openid}
   </select>
 </mapper>

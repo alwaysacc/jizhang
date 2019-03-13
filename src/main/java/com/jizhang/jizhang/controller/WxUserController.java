@@ -11,8 +11,6 @@ import com.jizhang.jizhang.model.WxUser;
 import com.jizhang.jizhang.service.WxUserService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.sun.org.apache.xml.internal.security.exceptions.Base64DecodingException;
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -75,7 +73,7 @@ public class WxUserController {
                           @RequestParam String rawData,
                           @RequestParam String signature,
                           @RequestParam String encrypteData,
-                          @RequestParam String iv) throws Base64DecodingException {
+                          @RequestParam String iv) {
         log.info( "Start get SessionKey" );
         Map<String,Object> map = new HashMap<String, Object>(  );
         System.out.println("用户非敏感信息"+rawData);

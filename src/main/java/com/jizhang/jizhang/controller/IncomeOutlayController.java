@@ -128,7 +128,7 @@ public class IncomeOutlayController {
         String[] title = {"id","金额","类别","地址","备注","时间","类型","账户"};
         String[] column1 = "id,amount,category,address,remarks,caeatedate,type,account".split(",");
         //excel文件名
-        String fileName = "学生信息表"+System.currentTimeMillis();
+        String fileName = mouth+"月账单";
         //sheet名
         eeu.getOutputFile(title, column1, list, fileName,path);
         String from;
@@ -140,7 +140,7 @@ public class IncomeOutlayController {
             mMessageHelper.setFrom(from);//发件人邮箱
             mMessageHelper.setTo(email);//收件人邮箱
             mMessageHelper.setSubject("用户验证码");//邮件的主题
-            mMessageHelper.setText("<p>订单编号为的产品详情</p>",true);
+            mMessageHelper.setText("<p>您的"+mouth+"月账单，见附件</p>",true);
             String filepath=path+fileName+".xls";
             File file=new File(filepath);//在邮件中添加一张图片
             System.out.println(filepath);

@@ -17,7 +17,7 @@
     <result column="userid" jdbcType="VARCHAR" property="userid" />
   </resultMap>
 
-  <select id="getAccount" resultType="Account">
+  <select id="getAccount" resultType="com.jizhang.jizhang.model.Account">
     select money,bank,credit,alipay,huabei,WeChat,jingdong,other from account where userid=#{userid}
   </select>
 </mapper>

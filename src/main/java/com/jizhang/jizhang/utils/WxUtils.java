@@ -6,18 +6,13 @@ import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
-
-import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
-import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.NoSuchPaddingException;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 import java.io.*;
 import java.net.URL;
 import java.net.URLConnection;
 import java.security.*;
-import java.security.spec.InvalidParameterSpecException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;

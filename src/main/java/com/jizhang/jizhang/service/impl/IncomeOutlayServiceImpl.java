@@ -4,6 +4,7 @@ import com.jizhang.jizhang.dao.IncomeOutlayMapper;
 import com.jizhang.jizhang.model.IncomeOutlay;
 import com.jizhang.jizhang.service.IncomeOutlayService;
 import com.jizhang.jizhang.utils.AbstractService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,6 +19,7 @@ import java.util.Map;
 @Service
 @Transactional
 public class IncomeOutlayServiceImpl extends AbstractService<IncomeOutlay> implements IncomeOutlayService {
+    @Autowired
     @Resource
     private IncomeOutlayMapper incomeOutlayMapper;
 

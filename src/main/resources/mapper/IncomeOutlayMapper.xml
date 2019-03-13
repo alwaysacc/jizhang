@@ -17,19 +17,19 @@
     <result column="userId" jdbcType="VARCHAR" property="userid" />
   </resultMap>
   <!--查询今天-->
-  <select id="getToday" resultType="IncomeOutlay">
+  <select id="getToday" resultType="com.jizhang.jizhang.model.IncomeOutlay">
     select id,amount,category,address,dates,createDate,remarks,type,account from income_outlay where to_days(createDate) = to_days(now()) and userid=#{userid}
   </select>
   <!--查询本周-->
-  <select id="getWeek" resultType="IncomeOutlay">
+  <select id="getWeek" resultType="com.jizhang.jizhang.model.IncomeOutlay">
     select id,amount,category,address,dates,createDate,remarks,type,account from income_outlay where YEARWEEK(date_format(createDate,'%Y-%m-%d')) = YEARWEEK(now())  and userid=#{userid}
   </select>
   <!--查询本月-->
-  <select id="getMonth" resultType="IncomeOutlay">
+  <select id="getMonth" resultType="com.jizhang.jizhang.model.IncomeOutlay">
     select id,amount,category,address,dates,createDate,remarks,type,account from income_outlay where date_format(createDate,'%Y-%m')=date_format(now(),'%Y-%m')  and userid=#{userid}
   </select>
   <!--查询本年-->
-  <select id="getYear" resultType="IncomeOutlay">
+  <select id="getYear" resultType="com.jizhang.jizhang.model.IncomeOutlay">
     select id,amount,category,address,dates,createDate,remarks,type,account from income_outlay where YEAR(createDate)=YEAR(NOW())  and userid=#{userid}
   </select>
 
