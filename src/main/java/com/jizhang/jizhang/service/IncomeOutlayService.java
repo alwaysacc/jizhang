@@ -1,11 +1,10 @@
 package com.jizhang.jizhang.service;
-import com.jizhang.jizhang.dao.WxUserMapper;
 import com.jizhang.jizhang.model.IncomeOutlay;
-import com.jizhang.jizhang.model.WxUser;
 import com.jizhang.jizhang.utils.Service;
+import org.apache.ibatis.annotations.Param;
 
-import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -20,4 +19,6 @@ public interface IncomeOutlayService extends Service<IncomeOutlay>{
     int getWeekIncome(String userid,int type);
     int getMonthIncome(String userid,int type);
     int getYearIncome(String userid,int type);
+    List<Map> getListByMouth(@Param("userid")String userid, @Param("mouth") int mouth);
+    List<Map> getCountDay(@Param("userid") String userid);
 }

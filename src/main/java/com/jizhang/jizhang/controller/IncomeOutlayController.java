@@ -1,6 +1,6 @@
 package com.jizhang.jizhang.controller;
 import com.alibaba.fastjson.JSONObject;
-import com.jizhang.jizhang.model.WxUser;
+import com.jizhang.jizhang.utils.ExportExcelUtil;
 import com.jizhang.jizhang.utils.Result;
 import com.jizhang.jizhang.utils.ResultGenerator;
 import com.jizhang.jizhang.model.IncomeOutlay;
@@ -10,14 +10,16 @@ import com.github.pagehelper.PageInfo;
 import com.jizhang.jizhang.utils.UUIDS;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.web.bind.annotation.*;
-import tk.mybatis.mapper.entity.Condition;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import javax.mail.internet.MimeMessage;
+import java.io.File;
+import java.util.*;
 
 /**
 * Created by alwaysacc on 2019/03/07.
@@ -28,7 +30,8 @@ public class IncomeOutlayController {
     private final Logger log = LoggerFactory.getLogger(IncomeOutlayController.class);
     @Resource
     private IncomeOutlayService incomeOutlayService;
-
+    @Autowired
+    private JavaMailSender jms;
     @PostMapping("/add")
     public Result add(String incomeOutlay){
         //JSONObject jsonObject=JSONObject.fromObject(incomeOutlay);
@@ -112,6 +115,47 @@ public class IncomeOutlayController {
         map.put("outlay",outlay);
         return ResultGenerator.genSuccessResult(map);
     }
-
-
+    @PostMapping("/sendEmail")
+    public Result sendEmail(@RequestParam String email,@RequestParam String userid,@RequestParam int mouth){
+        String path=System.getProperty("user.dir")+"\\";
+        System.out.println(path);
+        MimeMessage mMessage=jms.createMimeMessage();//创建邮件对象
+        MimeMessageHelper mMessageHelper;
+        Properties prop = new Properties();
+        List<Map> list = incomeOutlayService.getListByMouth(userid,mouth);
+        ExportExcelUtil eeu=new ExportExcelUtil();
+        //excel标题
+        String[] title = {"id","金额","类别","地址","备注","时间","类型","账户"};
+        String[] column1 = "id,amount,category,address,remarks,caeatedate,type,account".split(",");
+        //excel文件名
+        String fileName = "学生信息表"+System.currentTimeMillis();
+        //sheet名
+        eeu.getOutputFile(title, column1, list, fileName,path);
+        String from;
+        try{
+            //从配置文件中拿到发件人邮箱地址
+            prop.load(this.getClass().getResourceAsStream("/mail.properties"));
+            from = prop.get("mail.smtp.username")+"";
+            mMessageHelper=new MimeMessageHelper(mMessage,true);
+            mMessageHelper.setFrom(from);//发件人邮箱
+            mMessageHelper.setTo(email);//收件人邮箱
+            mMessageHelper.setSubject("用户验证码");//邮件的主题
+            mMessageHelper.setText("<p>订单编号为的产品详情</p>",true);
+            String filepath=path+fileName+".xls";
+            File file=new File(filepath);//在邮件中添加一张图片
+            System.out.println(filepath);
+            FileSystemResource resource=new FileSystemResource(file);
+            mMessageHelper.addAttachment(fileName+".xls", resource);//在邮件中添加一个附件
+            jms.send(mMessage);//发送邮件
+            file.delete();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return ResultGenerator.genSuccessResult(list);
+    }
+    @PostMapping("/getCount")
+    public Result getCount(@RequestParam String userid){
+        List<Map> list=incomeOutlayService.getCountDay(userid);
+        return ResultGenerator.genSuccessResult(list);
+    }
 }

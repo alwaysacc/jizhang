@@ -51,4 +51,12 @@
   <select id="getYearIncome" resultType="int">
     select COALESCE(SUM(amount),0) from income_outlay where YEAR(createDate)=YEAR(NOW())  and userid=#{userid} and type = #{type}
   </select>
+
+  <select id="getListByMouth" resultType="Map">
+    select id,amount,category,address,dates,createDate,remarks,type,account from income_outlay where month(createdate)=#{mouth}  and userid=#{userid}
+  </select>
+
+  <select id="getCountDay" resultType="Map">
+    select count(distinct dates) as countday,count(id) as count from income_outlay where userid=${userid}
+  </select>
 </mapper>

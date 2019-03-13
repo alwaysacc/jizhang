@@ -125,6 +125,12 @@
             <artifactId>qiniu-java-sdk</artifactId>
             <version>7.2.10</version>
         </dependency>
+        <!--导出Excel-->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>3.6</version>
+        </dependency>
         <!--reids-->
         <dependency>
             <groupId>org.springframework.boot</groupId>

@@ -2,7 +2,6 @@ package com.jizhang.jizhang.service.impl;
 
 import com.jizhang.jizhang.dao.IncomeOutlayMapper;
 import com.jizhang.jizhang.model.IncomeOutlay;
-import com.jizhang.jizhang.model.WxUser;
 import com.jizhang.jizhang.service.IncomeOutlayService;
 import com.jizhang.jizhang.utils.AbstractService;
 import org.springframework.stereotype.Service;
@@ -10,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -59,5 +59,15 @@ public class IncomeOutlayServiceImpl extends AbstractService<IncomeOutlay> imple
     @Override
     public int getYearIncome(String userid, int type) {
         return incomeOutlayMapper.getYearIncome(userid,type);
+    }
+
+    @Override
+    public List<Map> getListByMouth(String userid, int mouth) {
+        return incomeOutlayMapper.getListByMouth(userid,mouth);
+    }
+
+    @Override
+    public  List<Map> getCountDay(String userid) {
+        return incomeOutlayMapper.getCountDay(userid);
     }
 }
