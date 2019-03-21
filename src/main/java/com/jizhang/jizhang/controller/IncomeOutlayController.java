@@ -1,24 +1,27 @@
 package com.jizhang.jizhang.controller;
 import com.alibaba.fastjson.JSONObject;
-import com.jizhang.jizhang.utils.ExportExcelUtil;
-import com.jizhang.jizhang.utils.Result;
-import com.jizhang.jizhang.utils.ResultGenerator;
+import com.jizhang.jizhang.utils.*;
 import com.jizhang.jizhang.model.IncomeOutlay;
 import com.jizhang.jizhang.service.IncomeOutlayService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.jizhang.jizhang.utils.UUIDS;
+import org.apache.solr.client.solrj.SolrServerException;
+import org.apache.solr.common.SolrInputDocument;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.mail.internet.MimeMessage;
 import java.io.File;
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 /**
@@ -32,6 +35,8 @@ public class IncomeOutlayController {
     private IncomeOutlayService incomeOutlayService;
     @Autowired
     private JavaMailSender jms;
+    @Autowired
+    private SolrUtils solrUtils;
     @PostMapping("/add")
     public Result add(String incomeOutlay){
         //JSONObject jsonObject=JSONObject.fromObject(incomeOutlay);
@@ -157,5 +162,15 @@ public class IncomeOutlayController {
     public Result getCount(@RequestParam String userid){
         List<Map> list=incomeOutlayService.getCountDay(userid);
         return ResultGenerator.genSuccessResult(list);
+    }
+    @PostMapping("/select")
+    public Result getCount(@RequestParam String q, @RequestParam String userid,@RequestParam Integer page, @RequestParam Integer size)  {
+        Map map = null;
+        try {
+           map=solrUtils.select(q,page, size,userid);
+        }catch (Exception e){
+            log.error(String.valueOf(e));
+        }
+        return ResultGenerator.genSuccessResult(map);
     }
 }
