@@ -5,23 +5,17 @@ import com.jizhang.jizhang.model.IncomeOutlay;
 import com.jizhang.jizhang.service.IncomeOutlayService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import org.apache.solr.client.solrj.SolrServerException;
-import org.apache.solr.common.SolrInputDocument;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.mail.internet.MimeMessage;
 import java.io.File;
-import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 /**
@@ -62,7 +56,6 @@ public class IncomeOutlayController {
 
         return ResultGenerator.genSuccessResult();
     }
-
     @PostMapping("/detail")
     public Result detail(@RequestParam Integer id) {
         IncomeOutlay incomeOutlay = incomeOutlayService.findById(id);

@@ -9,7 +9,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @SpringBootApplication
 @EnableSwagger2
-//@EnableScheduling
+@EnableScheduling
 public class JizhangApplication extends SpringBootServletInitializer {
 
     public static void main(String[] args) {

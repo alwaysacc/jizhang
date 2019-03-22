@@ -8,8 +8,8 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     # 填写你数据库的url、登录名、密码和数据库名
     url: jdbc:mysql://localhost:3306/jizhang?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
-    username: root
-    password: root
+    username: jizhang
+    password: HZFessrdpYEGCxPp
     druid:
       # 连接池的配置信息
       # 初始化大小，最小，最大

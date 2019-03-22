@@ -22,7 +22,7 @@ public class TimeTask {
     @Resource
     private IncomeOutlayService incomeOutlayService;
     //定时更新solr索引
-    @Scheduled(cron = "10 * * * * ?")
+    @Scheduled(cron = "0 */10 * * * ?")
     public void timer() throws Exception {
         //获取当前时间
         LocalDateTime localDateTime = LocalDateTime.now();

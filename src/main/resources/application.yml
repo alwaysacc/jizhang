@@ -28,7 +28,7 @@ spring:
       max-file-size: 100MB
   data:
     solr:
-      host: http://127.0.0.1:8983/solr/alwaysacc
+      host: http://111.230.252.141:8983/solr/alwaysacc
 server:
   error:
     whitelabel:
